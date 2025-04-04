@@ -1,0 +1,51 @@
+{
+  "id": "4527380",
+  "name": "report",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3270847",
+      "name": "dropdown",
+      "font_class": "dropdown",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "15838539",
+      "name": "text",
+      "font_class": "text",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "12342510",
+      "name": "number",
+      "font_class": "number",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "39804372",
+      "name": "formulate",
+      "font_class": "formulate",
+      "unicode": "e6f7",
+      "unicode_decimal": 59127
+    },
+    {
+      "icon_id": "8827254",
+      "name": "settings",
+      "font_class": "settings",
+      "unicode": "e943",
+      "unicode_decimal": 59715
+    },
+    {
+      "icon_id": "2285753",
+      "name": "save",
+      "font_class": "save",
+      "unicode": "e6ed",
+      "unicode_decimal": 59117
+    }
+  ]
+}

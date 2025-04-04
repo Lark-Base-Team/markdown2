@@ -1,0 +1,31 @@
+{
+  "hello": "hello",
+  "feature": {
+    "settings": {
+      "title": "Settings",
+      "base": {
+        "title": "base settings"
+      },
+      "globalkey": {
+        "title": "glo"
+      },
+      "superpannel": {},
+      "superpanel": {
+        "title": "super panel"
+      }
+    },
+    "installed": {
+      "title": "installed",
+      "keyword": {}
+    },
+    "appstore": {
+      "title": "appstore"
+    },
+    "account": {
+      "title": "account"
+    },
+    "dev": {
+      "title": "developer"
+    }
+  }
+}
