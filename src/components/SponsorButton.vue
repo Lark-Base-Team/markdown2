@@ -25,8 +25,12 @@
         <p>{{ $t("preview.sponsor.tip2") }}️</p>
         <p>{{ $t("preview.sponsor.tip3") }}️</p>
         <div class="qr-placeholder">
-          <img src="../assets/wx.jpg" alt="" />
-          <img src="../assets/zfb.jpg" alt="" />
+          <div class="img-container">
+            <img src="../assets/wx.jpg" alt="" />
+          </div>
+          <div class="img-container">
+            <img src="../assets/zfb.jpg" alt="" />
+          </div>
         </div>
       </div>
     </el-dialog>
@@ -55,16 +59,35 @@ const sponsorDialogVisible = ref(false);
   align-items: center;
   justify-content: center;
   color: #909399;
+  gap: 30px;
+}
+
+.img-container {
+  overflow: hidden;
+  width: 175px;
+  height: 185px;
+  transition: all 0.3s ease;
+}
+
+.img-container:hover {
+  transform: scale(1.2);
+  z-index: 10;
 }
 
 .qr-placeholder img {
-  width: 175px;
-  height: 185px;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
 }
 
-.qr-placeholder img:first-child {
-  margin-right: 30px;
+.qr-placeholder img:hover {
+  transform: scale(1.5);
 }
+
+/* 删除这个选择器，因为我们现在使用gap属性来控制间距 */
+/* .qr-placeholder img:first-child {
+  margin-right: 30px;
+} */
 
 .sponsor-button {
   width: 90px;

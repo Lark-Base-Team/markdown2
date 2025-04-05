@@ -25,11 +25,15 @@
         <!-- 使用抽取的赞助按钮组件 -->
         <el-button @click="selectLastRecord()">上一行</el-button>
         <el-button @click="selectNextRecord()">下一行</el-button>
+        <!-- 添加显示/隐藏输入框的按钮 -->
+        <el-button @click="toggleInputArea" size="small" type="info">
+          {{ isInputVisible ? '隐藏输入框' : '显示输入框' }}
+        </el-button>
         <SponsorButton />
       </el-col>
     </el-row>
 
-    <el-row class="md-render-row input-row">
+    <el-row class="md-render-row input-row" v-if="isInputVisible">
       <el-col :span="24" class="input-area">
         <el-input
           type="textarea"
@@ -86,6 +90,14 @@ const canSave = computed(() => {
 
 // 保存状态提示
 const saveStatus = ref<{ type: string; message: string } | null>(null);
+
+// 控制输入区域的显示和隐藏
+const isInputVisible = ref(true);
+
+// 切换输入区域的显示状态
+const toggleInputArea = () => {
+  isInputVisible.value = !isInputVisible.value;
+};
 
 // 保存到多维表格的方法
 const saveToTable = async () => {
@@ -182,12 +194,18 @@ onMounted(() => {
   height: 45%; /* 调整高度以适应新增的操作栏 */
 }
 
+/* 当输入框隐藏时，预览区域自动填充 */
+.preview-row {
+  flex: 1;
+}
+
 /* 新增操作栏样式 */
 .action-row {
   padding: 8px 10px;
   background-color: #f5f7fa;
   border-top: 1px solid #e4e7ed;
   border-bottom: 1px solid #e4e7ed;
+  flex: 0 0 auto; /* 确保操作栏不会伸缩 */
 }
 
 .action-area {
