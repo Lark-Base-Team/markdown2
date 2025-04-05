@@ -1,8 +1,8 @@
 <template>
   <div ref="editorContainer" class="editor-container"></div>
 </template>
-  
-  <script setup lang="ts">
+
+<script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 import * as monaco from "monaco-editor";
 
@@ -24,7 +24,7 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const editorContainer = ref(null);
-let editor = null;
+let editor: monaco.editor.IStandaloneCodeEditor = null;
 let resizeObserver = null;
 
 // 初始化编辑器
@@ -56,14 +56,14 @@ onMounted(() => {
     const value = editor.getValue();
     emit("update:modelValue", value);
   });
-  
+
   // 创建 ResizeObserver 监听容器大小变化
   resizeObserver = new ResizeObserver(() => {
     if (editor) {
       editor.layout();
     }
   });
-  
+
   // 开始监听容器大小变化
   if (editorContainer.value) {
     resizeObserver.observe(editorContainer.value);
@@ -75,7 +75,7 @@ onBeforeUnmount(() => {
   if (editor) {
     editor.dispose();
   }
-  
+
   // 停止监听大小变化
   if (resizeObserver) {
     resizeObserver.disconnect();
@@ -101,12 +101,19 @@ watch(
     }
   }
 );
+const getEditor = () => {
+  return editor;
+}
+defineExpose({
+  getEditor,
+})
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .editor-container {
   width: 100%;
-  height: 100%; /* 修改为100%，使编辑器高度跟随父元素 */
+  height: 100%;
+  /* 修改为100%，使编辑器高度跟随父元素 */
   border: 1px solid #333;
   border-radius: 4px;
 }

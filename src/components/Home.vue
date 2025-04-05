@@ -29,10 +29,26 @@
             </el-icon>
           </el-button>
         </el-tooltip>
+        <el-tooltip content="编辑工具" placement="top" :hide-after="1000">
+          <el-button circle size="small">
+            <el-icon>
+              <el-icon>
+                <Tools />
+              </el-icon>
+            </el-icon>
+          </el-button>
+        </el-tooltip>
+        <el-tooltip :content="isInputVisible ? '隐藏输入框' : '显示输入框'" placement="top" :hide-after="1000">
+          <el-button circle size="small" @click="toggleInputArea">
+            <el-icon>
+              <Hide />
+            </el-icon>
+          </el-button>
+        </el-tooltip>
         <!-- 添加显示/隐藏输入框的按钮 -->
-        <el-button @click="toggleInputArea" size="small" type="info">
+        <!-- <el-button @click="toggleInputArea" size="small" type="info">
           {{ isInputVisible ? '隐藏输入框' : '显示输入框' }}
-        </el-button>
+        </el-button> -->
         <SponsorButton />
         <el-tag v-if="saveStatus" :type="saveStatus.type" size="small">{{
           saveStatus.message
@@ -43,7 +59,7 @@
     <el-row class="md-render-row input-row" v-if="isInputVisible">
       <el-col :span="24" class="input-area">
         <!-- <el-input type="textarea" v-model="markdownText" placeholder="请输入 Markdown 文本..." class="markdown-textarea" /> -->
-        <MonacoEditor v-model="markdownText" language="markdown" theme="vs" :options="editorOptions" />
+        <MonacoEditor ref="editRef" v-model="markdownText" language="markdown" theme="vs" :options="editorOptions" />
       </el-col>
     </el-row>
   </div>
@@ -77,6 +93,8 @@ const selectValue = ref({
   fieldId: "",
   recordId: "",
 });
+
+const editRef = ref(null);
 
 // 定义 Markdown 文本和渲染后的 HTML
 const markdownText = ref("");
@@ -138,6 +156,7 @@ const saveToTable = async () => {
 const counter = ref(0);
 const selectCellValue = ref("");
 const selectChange = (select: any) => {
+  if (!select || !select.fieldId || !select.recordId || !select.tableId) return;
   selectValue.value = select;
   bitable.base.getTableById(select.tableId).then((table: ITable) => {
     table.getFieldMetaById(select.fieldId).then((m: IFieldMeta) => {
@@ -150,11 +169,6 @@ const selectChange = (select: any) => {
             markdownText.value = v;
             originalText.value = v; // 存储原始文本
             saveStatus.value = null; // 清除之前的保存状态
-            // table.setCellValue(
-            //   select.fieldId,
-            //   select.recordId,
-            //   v + counter.value++
-            // );
           });
         });
       }
@@ -168,6 +182,7 @@ const selectNextRecord = () => {
     }
   });
 };
+
 
 const selectLastRecord = () => {
   baseTableServices.getLastRecord(selectValue.value).then((res) => {
