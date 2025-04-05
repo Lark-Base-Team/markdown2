@@ -17,11 +17,19 @@
           @click="saveToTable"
           :disabled="!canSave"
         >
-          保存到多维表格
+          保存
         </el-button>
-        <!-- 使用抽取的赞助按钮组件 -->
-        <el-button @click="selectLastRecord()">上一行</el-button>
-        <el-button @click="selectNextRecord()">下一行</el-button>
+        <!-- 使用图标按钮替换文字按钮 -->
+        <el-tooltip content="上一行" placement="top" :hide-after="1000">
+          <el-button circle @click="selectLastRecord()" size="small">
+            <el-icon><ArrowUp /></el-icon>
+          </el-button>
+        </el-tooltip>
+        <el-tooltip content="下一行" placement="top" :hide-after="1000">
+          <el-button circle @click="selectNextRecord()" size="small">
+            <el-icon><ArrowDown /></el-icon>
+          </el-button>
+        </el-tooltip>
         <!-- 添加显示/隐藏输入框的按钮 -->
         <el-button @click="toggleInputArea" size="small" type="info">
           {{ isInputVisible ? '隐藏输入框' : '显示输入框' }}
