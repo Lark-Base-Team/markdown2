@@ -19,9 +19,6 @@
         >
           保存到多维表格
         </el-button>
-        <el-tag v-if="saveStatus" :type="saveStatus.type" size="small">{{
-          saveStatus.message
-        }}</el-tag>
         <!-- 使用抽取的赞助按钮组件 -->
         <el-button @click="selectLastRecord()">上一行</el-button>
         <el-button @click="selectNextRecord()">下一行</el-button>
@@ -30,6 +27,9 @@
           {{ isInputVisible ? '隐藏输入框' : '显示输入框' }}
         </el-button>
         <SponsorButton />
+        <el-tag v-if="saveStatus" :type="saveStatus.type" size="small">{{
+          saveStatus.message
+        }}</el-tag>
       </el-col>
     </el-row>
 
