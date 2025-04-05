@@ -23,6 +23,8 @@
           saveStatus.message
         }}</el-tag>
         <!-- 使用抽取的赞助按钮组件 -->
+        <el-button @click="selectLastRecord()">上一行</el-button>
+        <el-button @click="selectNextRecord()">下一行</el-button>
         <SponsorButton />
       </el-col>
     </el-row>
@@ -53,7 +55,8 @@ import { mdEngine } from "@/services/MarkDownEngine";
 import "highlight.js/styles/github.css";
 // 导入赞助按钮组件
 import SponsorButton from "./SponsorButton.vue";
-
+import { baseTableServices } from "@/services/BaseTableServices";
+import { s } from "vite/dist/node/types.d-aGj9QkWt";
 const selectValue = ref({
   baseId: "",
   tableId: "",
@@ -114,6 +117,7 @@ const saveToTable = async () => {
 const counter = ref(0);
 const selectCellValue = ref("");
 const selectChange = (select: any) => {
+  selectValue.value = select;
   bitable.base.getTableById(select.tableId).then((table: ITable) => {
     table.getFieldMetaById(select.fieldId).then((m: IFieldMeta) => {
       // console.log(m);
@@ -136,11 +140,25 @@ const selectChange = (select: any) => {
     });
   });
 };
+const selectNextRecord = () => {
+  baseTableServices.getNextRecord(selectValue.value).then((res) => {
+    if (res) {
+      selectChange(res);
+    }
+  });
+};
+
+const selectLastRecord = () => {
+  baseTableServices.getLastRecord(selectValue.value).then((res) => {
+    if (res) {
+      selectChange(res);
+    }
+  });
+};
 const initListener = async () => {
   try {
     bitable.base.onSelectionChange((e) => {
-      selectValue.value = e.data;
-      selectChange(selectValue.value);
+      selectChange(e.data);
     });
   } catch (error) {
     console.error("初始化监听时出错:", error);
