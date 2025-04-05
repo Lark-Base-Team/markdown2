@@ -11,23 +11,22 @@
     <!-- 新增操作栏 -->
     <el-row class="action-row">
       <el-col :span="24" class="action-area">
-        <el-button
-          type="primary"
-          size="small"
-          @click="saveToTable"
-          :disabled="!canSave"
-        >
+        <el-button type="primary" size="small" @click="saveToTable" :disabled="!canSave">
           保存
         </el-button>
         <!-- 使用图标按钮替换文字按钮 -->
         <el-tooltip content="上一行" placement="top" :hide-after="1000">
           <el-button circle @click="selectLastRecord()" size="small">
-            <el-icon><ArrowUp /></el-icon>
+            <el-icon>
+              <ArrowUp />
+            </el-icon>
           </el-button>
         </el-tooltip>
         <el-tooltip content="下一行" placement="top" :hide-after="1000">
           <el-button circle @click="selectNextRecord()" size="small">
-            <el-icon><ArrowDown /></el-icon>
+            <el-icon>
+              <ArrowDown />
+            </el-icon>
           </el-button>
         </el-tooltip>
         <!-- 添加显示/隐藏输入框的按钮 -->
@@ -43,17 +42,14 @@
 
     <el-row class="md-render-row input-row" v-if="isInputVisible">
       <el-col :span="24" class="input-area">
-        <el-input
-          type="textarea"
-          v-model="markdownText"
-          placeholder="请输入 Markdown 文本..."
-          class="markdown-textarea"
-        />
+        <!-- <el-input type="textarea" v-model="markdownText" placeholder="请输入 Markdown 文本..." class="markdown-textarea" /> -->
+        <MonacoEditor v-model="markdownText" language="markdown" theme="vs" :options="editorOptions" />
       </el-col>
     </el-row>
   </div>
 </template>
 <script setup lang="ts">
+import MonacoEditor from "@/components/widgets/MonacoEditor.vue";
 import {
   bitable,
   Selection,
@@ -68,7 +64,12 @@ import "highlight.js/styles/github.css";
 // 导入赞助按钮组件
 import SponsorButton from "./SponsorButton.vue";
 import { baseTableServices } from "@/services/BaseTableServices";
-import { s } from "vite/dist/node/types.d-aGj9QkWt";
+const editorOptions = ref({
+  fontSize: 14,
+  lineNumbers: 'on',
+  roundedSelection: false,
+  scrollBeyondLastLine: false
+})
 const selectValue = ref({
   baseId: "",
   tableId: "",
@@ -199,7 +200,8 @@ onMounted(() => {
 .md-render-row {
   margin-bottom: 0;
   flex: 1;
-  height: 45%; /* 调整高度以适应新增的操作栏 */
+  height: 45%;
+  /* 调整高度以适应新增的操作栏 */
 }
 
 /* 当输入框隐藏时，预览区域自动填充 */
@@ -213,7 +215,8 @@ onMounted(() => {
   background-color: #f5f7fa;
   border-top: 1px solid #e4e7ed;
   border-bottom: 1px solid #e4e7ed;
-  flex: 0 0 auto; /* 确保操作栏不会伸缩 */
+  flex: 0 0 auto;
+  /* 确保操作栏不会伸缩 */
 }
 
 .action-area {
@@ -238,7 +241,7 @@ onMounted(() => {
 
 .markdown-textarea {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   font-family: "Courier New", Courier, monospace;
 }
 
