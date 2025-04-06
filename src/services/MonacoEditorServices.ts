@@ -25,7 +25,7 @@ export class MonacoEditorServices {
     setCurrentLineText(text: string, cursorAtEnd: boolean = false): void {
         const lineNumber = this.getCurrentLineNumber();
         this.editor.getModel().pushEditOperations([], [{
-            range: new monaco.Range(lineNumber, 1, lineNumber, this.getCurrentLineText().length),
+            range: new monaco.Range(lineNumber, 1, lineNumber, this.getCurrentLineText().length + 1),
             text: text
         }], () => {
             if (!cursorAtEnd) {

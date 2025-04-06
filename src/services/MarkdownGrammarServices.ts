@@ -1,4 +1,10 @@
 export class MarkdownGrammarServices {
+
+   
+    public static h(level: number, text: string): string {
+        return `${'#'.repeat(level)} ${text}`; 
+    }
+
     /**
      * 将文本转换为一级标题
      * @param text 要转换的文本

@@ -3,6 +3,8 @@
 ##  待办
 + [x] 上一行，下一行进行切换
 + [x] 隐藏，显示输入框
-+ [x] 编辑框换控件
-+ [ ] 增加快速编辑菜单
++ [x] 编辑
++ [ ] 
 
+## 试用
+[https://rcnmhid7venb.feishu.cn/base/Zt96bxcXwaB8QZs5xZ7c89YvnOe](https://rcnmhid7venb.feishu.cn/base/Zt96bxcXwaB8QZs5xZ7c89YvnOe)

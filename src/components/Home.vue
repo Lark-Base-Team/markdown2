@@ -29,15 +29,7 @@
             </el-icon>
           </el-button>
         </el-tooltip>
-        <el-tooltip content="编辑工具" placement="top" :hide-after="1000">
-          <el-button circle size="small">
-            <el-icon>
-              <el-icon>
-                <Tools />
-              </el-icon>
-            </el-icon>
-          </el-button>
-        </el-tooltip>
+        <MarkdownToolbar :ctx="ctx"></MarkdownToolbar>
         <el-tooltip :content="isInputVisible ? '隐藏输入框' : '显示输入框'" placement="top" :hide-after="1000">
           <el-button circle size="small" @click="toggleInputArea">
             <el-icon>
@@ -45,10 +37,6 @@
             </el-icon>
           </el-button>
         </el-tooltip>
-        <!-- 添加显示/隐藏输入框的按钮 -->
-        <!-- <el-button @click="toggleInputArea" size="small" type="info">
-          {{ isInputVisible ? '隐藏输入框' : '显示输入框' }}
-        </el-button> -->
         <SponsorButton />
         <el-tag v-if="saveStatus" :type="saveStatus.type" size="small">{{
           saveStatus.message
@@ -66,6 +54,7 @@
 </template>
 <script setup lang="ts">
 import MonacoEditor from "@/components/widgets/MonacoEditor.vue";
+import MarkdownToolbar from "@/components/widgets/MarkdownToolbar.vue";
 import {
   bitable,
   Selection,
@@ -80,6 +69,8 @@ import "highlight.js/styles/github.css";
 // 导入赞助按钮组件
 import SponsorButton from "./SponsorButton.vue";
 import { baseTableServices } from "@/services/BaseTableServices";
+import { AppContext } from "@/services/AppContext";
+import { MonacoEditorServices } from "@/services/MonacoEditorServices";
 const editorOptions = ref({
   fontSize: 14,
   lineNumbers: 'on',
@@ -125,6 +116,12 @@ const isInputVisible = ref(true);
 const toggleInputArea = () => {
   isInputVisible.value = !isInputVisible.value;
 };
+
+const ctx = new AppContext()
+
+const initCtx = () => {
+  ctx.setEditor(new MonacoEditorServices(editRef.value.getEditor()))
+}
 
 // 保存到多维表格的方法
 const saveToTable = async () => {
@@ -202,6 +199,7 @@ const initListener = async () => {
 };
 onMounted(() => {
   initListener();
+  initCtx();
 });
 </script>
 <style scoped>
