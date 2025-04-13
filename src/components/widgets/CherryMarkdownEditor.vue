@@ -95,7 +95,7 @@ const createNewCherry = (text: string) => {
         toolbars: {
             // 定义顶部工具栏
             // toolbar: ['bold', 'italic', 'strikethrough', '|', 'color', 'header', 'ruby', '|', 'list', 'panel', 'detail', 'export', 'togglePreview', 'switchModel'],
-            toolbar: ['save', 'last', 'next', 'bold', 'italic', 'strikethrough', '|', 'color', 'header', 'formula','ruby', '|', 'list', 'table', 'panel', 'detail', 'togglePreview', 'switchModel', 'export'],
+            toolbar: ['save', 'last', 'next', 'bold', 'italic', 'strikethrough', 'link','|', 'color', 'header', 'code','formula','toc','copy','ruby', '|', 'list', 'table','checklist','justify', 'panel', 'detail', 'togglePreview', 'switchModel', 'export'],
             // 定义侧边栏，默认为空
             sidebar: [],
             // 定义顶部右侧工具栏，默认为空
