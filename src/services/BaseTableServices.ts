@@ -55,6 +55,7 @@ export class BaseTableServices {
         }
         return null;
     }
+
 }
 
 export const baseTableServices = new BaseTableServices()

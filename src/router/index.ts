@@ -9,7 +9,8 @@ const routes = [
     // 首页是需要登录的
     path: "/",
     name: "home",
-    component: () => import("../components/Home.vue"),
+    component: () => import("../components/BaseMarkdownEditor.vue"),
+    // component: () => import("../components/Home.vue"),
   },
   {
     // 首页是需要登录的
