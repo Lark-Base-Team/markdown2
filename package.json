@@ -2,7 +2,8 @@
   "name": "markdown-editor",
   "version": "1.0.0",
   "type": "module",
-  "description": "React TypeScript on Replit, using Vite bundler",
+  "description": "markdown editor for lark",
+  "output":"dist",
   "scripts": {
     "start": "npm run dev",
     "dev": "vite",
