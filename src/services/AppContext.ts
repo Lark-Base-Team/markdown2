@@ -1,14 +1,20 @@
-import { MonacoEditorServices } from "./MonacoEditorServices";
+import { WeiboApiService } from "./WeiboApiService";
 
 export class AppContext {
-    editor: MonacoEditorServices = null;
+    wb: WeiboApiService;
     constructor() {
 
     }
-    setEditor(editor: MonacoEditorServices) {
-        this.editor = editor;
+    setWeboApiService(wb: WeiboApiService) {
+        this.wb = wb;
     }
-    getEditor(): MonacoEditorServices {
-        return this.editor;
+    getWeboApiService() {
+        return this.wb;
     }
+}
+
+export function setUpContext(){
+    const appContext = new AppContext();
+    appContext.setWeboApiService(new WeiboApiService());
+    return appContext; 
 }

@@ -7,8 +7,6 @@
 import { ref, onMounted, computed, watch } from "vue";
 import 'cherry-markdown/dist/cherry-markdown.css';
 import Cherry from 'cherry-markdown';
-import { i } from "vite/dist/node/types.d-aGj9QkWt";
-import { on } from "events";
 const cherryInstance = ref({})
 const mdEditor = ref(null)
 const props = defineProps({

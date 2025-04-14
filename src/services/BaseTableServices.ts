@@ -4,9 +4,6 @@ import {
     IFieldMeta,
     FieldType,
 } from "@lark-base-open/js-sdk"
-// 需要先安装 lodash 及其类型声明文件
-// npm install --save lodash
-// npm install --save-dev @types/lodash
 // 导入具体需要使用的 lodash 函数，避免导入整个库
 import { includes, extend } from "lodash"
 export class BaseTableServices {

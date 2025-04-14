@@ -1,10 +1,6 @@
 <template>
   <!-- 多维表格编辑插件 -->
   <div class="base-markdown-editor">
-    <!-- <div>
-      <BaseToolsBar>
-      </BaseToolsBar>
-    </div> -->
     <div class="editor-container">
       <Editor ref="editor" v-model:model-value="markdownText" @base:last="lastLine" @base:save="save"
         @base:next="nextLine" />
@@ -24,17 +20,8 @@ const editor = ref();
 const baseTableBridgeService = new BaseTableBridgeService();
 const selectValue = baseTableBridgeService.getCurrentCellValue()
 const markdownText = ref("");
-
-// watch(() => selectValue.value, (newValue) => {
-//   // 监听选中单元格的变化
-//   if (newValue) {
-//     // 更新编辑器的值
-//     // editor.value.setValue(newValue);
-
-//   }
-// }, { immediate: true });
 const onSelectChange = (v, s) => {
-  console.log('监听选中单元格的值:', v);
+  // console.log('监听选中单元格的值:', v);
   markdownText.value = v;
 }
 // 光标移动方法
