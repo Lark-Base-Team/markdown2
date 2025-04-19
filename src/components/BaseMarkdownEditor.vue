@@ -3,7 +3,7 @@
   <div class="base-markdown-editor">
     <div class="editor-container">
       <Editor ref="editor" v-model:model-value="markdownText" @base:last="lastLine" @base:save="save"
-        @base:next="nextLine" />
+        @base:next="nextLine" @base:left="leftColumn" @base:right="rightColumn"/>
     </div>
   </div>
 </template>
@@ -29,6 +29,14 @@ const init = () => {
   baseTableBridgeService.initListener()
   baseTableBridgeService.onSelectChange(onSelectChange)
 }
+const leftColumn = () => {
+  console.log('左一列');
+  baseTableBridgeService.selectLeftColumn() 
+}
+const rightColumn = () => {
+  console.log('右一列');
+  baseTableBridgeService.selectRightColumn() 
+}
 const nextLine = () => {
   console.log('下一行');
   baseTableBridgeService.selectNextLineRecord()
@@ -39,9 +47,9 @@ const lastLine = () => {
 }
 const save = () => {
   console.log('保存');
-  baseTableBridgeService.saveToCurrentSelect(markdownText.value).then((res) => {
-    ElMessage.success('保存成功')
-  }).catch((err) => {
+  baseTableBridgeService.saveToCurrentSelect(markdownText.value).then((index:number[]) => {
+    ElMessage.success(`保存成功`)
+  }).catch((err:any) => {
     ElMessage.error('保存失败')
   })
 }
