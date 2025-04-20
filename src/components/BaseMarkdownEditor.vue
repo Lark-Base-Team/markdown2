@@ -11,6 +11,7 @@
         @base:left="leftColumn"
         @base:right="rightColumn"
         @base:userSettings="userSettings"
+        @base:favor="userFavor"
         :ctx="ctx"
       />
     </div>
@@ -19,7 +20,7 @@
     <el-dialog
       v-model="settingsDialogVisible"
       title="用户设置"
-      width="70%"
+      width="100%"
       :before-close="handleCloseSettings"
     >
       <UserSettings
@@ -90,6 +91,10 @@ const userSettings = (settings: any) => {
   userSettingsData.value = settings || {};
   settingsDialogVisible.value = true;
 };
+
+const userFavor = ()=>{
+  console.log("用户收藏");
+}
 
 // 处理关闭设置对话框
 const handleCloseSettings = () => {

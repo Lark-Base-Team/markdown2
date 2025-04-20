@@ -2,7 +2,7 @@
   <div>
     <h2>通用设置</h2>
     <el-form label-width="120px">
-      <el-form-item label="编辑器">
+      <el-form-item label="编辑器初始化">
         <el-radio-group v-model="selectedOption">
           <el-radio value="editOnly">编辑</el-radio>
           <!-- <el-radio value="previewOnly">预览</el-radio> -->

@@ -1,11 +1,12 @@
 <template>
   <div class="user-settings-container">
     <el-container>
-      <el-aside width="200px">
+      <el-aside :width="isCollapse ? '64px' : '200px'" class="aside-container">
         <el-menu
           :default-active="activeMenu"
           class="settings-menu"
           @select="handleMenuSelect"
+          :collapse="isCollapse"
         >
           <el-menu-item index="general">
             <el-icon>
@@ -20,6 +21,11 @@
             <span>菜单设置</span>
           </el-menu-item>
         </el-menu>
+        <div class="collapse-button" @click="toggleCollapse">
+          <el-icon>
+            <component :is="isCollapse ? 'ArrowRight' : 'ArrowLeft'" />
+          </el-icon>
+        </div>
       </el-aside>
 
       <el-main>
@@ -37,7 +43,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { User, Setting, Menu, Plus } from "@element-plus/icons-vue";
+import { User, Setting, Menu, Plus, ArrowLeft, ArrowRight } from "@element-plus/icons-vue";
 import GeneralSettings from "./settings/GeneralSettings.vue";
 import { ElMessage } from "element-plus";
 import { AppContext } from "@/services/AppContext";
@@ -49,6 +55,8 @@ const props = defineProps({
 
 // 当前激活的菜单项
 const activeMenu = ref("general");
+// 菜单是否折叠
+const isCollapse = ref(true);
 
 const emits = defineEmits(["setttingUserSettings:saved", "setttingUserSettings:cancel"]);
 
@@ -63,6 +71,11 @@ const generalSettings = ref({
 const handleMenuSelect = (index) => {
   activeMenu.value = index;
 };
+
+// 切换菜单折叠状态
+const toggleCollapse = () => {
+  isCollapse.value = !isCollapse.value;
+};
 </script>
 
 <style scoped>
@@ -72,9 +85,34 @@ const handleMenuSelect = (index) => {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
+.aside-container {
+  position: relative;
+  transition: width 0.3s;
+}
+
 .settings-menu {
   height: 100%;
   border-right: solid 1px #e6e6e6;
+}
+
+.collapse-button {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #f2f6fc;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+}
+
+.collapse-button:hover {
+  background-color: #e6f1fc;
 }
 
 .settings-panel {

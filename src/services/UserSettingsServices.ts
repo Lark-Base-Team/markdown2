@@ -47,7 +47,9 @@ export const defaultUserSettings: UserSettings = {
             "togglePreview",
             "switchModel",
             "export",
-            "userSettings",]
+            "userSettings",
+            "favor"
+        ]
     }
 };
 
