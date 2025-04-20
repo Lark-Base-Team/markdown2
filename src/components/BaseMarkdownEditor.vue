@@ -2,32 +2,18 @@
   <!-- 多维表格编辑插件 -->
   <div class="base-markdown-editor">
     <div class="editor-container">
-      <Editor
-        ref="editor"
-        v-model:model-value="markdownText"
-        @base:last="lastLine"
-        @base:save="save"
-        @base:next="nextLine"
-        @base:left="leftColumn"
-        @base:right="rightColumn"
-        @base:userSettings="userSettings"
-        @base:favor="userFavor"
-        :ctx="ctx"
-      />
+      <Editor ref="editor" v-model:model-value="markdownText" @base:last="lastLine" @base:save="save"
+        @base:next="nextLine" @base:left="leftColumn" @base:right="rightColumn" @base:userSettings="userSettings"
+        @base:favor="userFavor" :ctx="ctx" />
     </div>
 
     <!-- 用户设置对话框 -->
-    <el-dialog
-      v-model="settingsDialogVisible"
-      title="用户设置"
-      width="100%"
-      :before-close="handleCloseSettings"
-    >
-      <UserSettings
-        @settting-user-settings:saved="saveUserSettings"
-        @settting-user-settings:cancel="cancelUserSettings"
-        :ctx="ctx"
-      />
+    <el-dialog v-model="settingsDialogVisible" title="用户设置" width="100%" :before-close="handleCloseSettings">
+      <UserSettings @settting-user-settings:saved="saveUserSettings" @settting-user-settings:cancel="cancelUserSettings"
+        :ctx="ctx" />
+    </el-dialog>
+    <el-dialog v-model="donateDialogVisible" title="感谢您的支持" width="100%" :before-close="handleCloseDonate">
+      <SponsorMe />
     </el-dialog>
   </div>
 </template>
@@ -35,6 +21,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import Editor from "@/components/widgets/CherryMarkdownEditor.vue";
+import SponsorMe from "@/components/widgets/SponsorMe.vue";
 import { BaseTableBridgeService } from "@/services/BaseTableBridgeService";
 import { baseTableServices } from "@/services/BaseTableServices";
 import { ElMessage } from "element-plus";
@@ -92,9 +79,7 @@ const userSettings = (settings: any) => {
   settingsDialogVisible.value = true;
 };
 
-const userFavor = ()=>{
-  console.log("用户收藏");
-}
+
 
 // 处理关闭设置对话框
 const handleCloseSettings = () => {
@@ -112,6 +97,17 @@ const saveUserSettings = (settings: any) => {
 // 取消用户设置
 const cancelUserSettings = () => {
   settingsDialogVisible.value = false;
+};
+
+const donateDialogVisible = ref(false);
+
+const userFavor = () => {
+  console.log("用户收藏");
+  donateDialogVisible.value = true; // 显示打赏对话框
+}
+// 处理关闭打赏对话框
+const handleCloseDonate = () => {
+  donateDialogVisible.value = false;
 };
 
 onMounted(() => {

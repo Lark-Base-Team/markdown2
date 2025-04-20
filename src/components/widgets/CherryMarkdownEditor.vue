@@ -204,6 +204,7 @@ const createNewCherry = (text: string) => {
         "switchModel",
         "export",
         "userSettings",
+        "favor",
       ],
       // 定义侧边栏，默认为空
       sidebar: [],
