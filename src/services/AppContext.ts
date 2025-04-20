@@ -1,20 +1,22 @@
-import { WeiboApiService } from "./WeiboApiService";
+import Cherry from "cherry-markdown";
+import { UserSettingsServices } from "./UserSettingsServices";
 
 export class AppContext {
-    wb: WeiboApiService;
+    userSettings: UserSettingsServices;
+    currentEditor: Cherry
     constructor() {
 
     }
-    setWeboApiService(wb: WeiboApiService) {
-        this.wb = wb;
+    setUserSettingsService(userSettings: UserSettingsServices) {
+        this.userSettings = userSettings;
     }
-    getWeboApiService() {
-        return this.wb;
+    getUserSettingsService() {
+        return this.userSettings;
     }
-}
-
-export function setUpContext(){
-    const appContext = new AppContext();
-    appContext.setWeboApiService(new WeiboApiService());
-    return appContext; 
+    setCurrentEditor(editor: Cherry) {
+        this.currentEditor = editor;
+    }
+    getCurrentEditor() {
+        return this.currentEditor;
+    }
 }
