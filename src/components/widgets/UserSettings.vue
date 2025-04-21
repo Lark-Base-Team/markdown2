@@ -2,12 +2,7 @@
   <div class="user-settings-container">
     <el-container>
       <el-aside :width="isCollapse ? '64px' : '200px'" class="aside-container">
-        <el-menu
-          :default-active="activeMenu"
-          class="settings-menu"
-          @select="handleMenuSelect"
-          :collapse="isCollapse"
-        >
+        <el-menu :default-active="activeMenu" class="settings-menu" @select="handleMenuSelect" :collapse="isCollapse">
           <el-menu-item index="general">
             <el-icon>
               <Setting />
@@ -30,11 +25,12 @@
 
       <el-main>
         <div v-if="activeMenu === 'general'" class="settings-panel">
-          <GeneralSettings
-            :ctx="ctx"
-            @settting-user-settings:saved="emits('setttingUserSettings:saved')"
-            @settting-user-settings:cancel="emits('setttingUserSettings:cancel')"
-          ></GeneralSettings>
+          <GeneralSettings :ctx="ctx" @settting-user-settings:saved="emits('setttingUserSettings:saved')"
+            @settting-user-settings:cancel="emits('setttingUserSettings:cancel')"></GeneralSettings>
+        </div>
+        <div v-if="activeMenu === 'menu'" class="menu-panel">
+          <ToolsbarSettings :ctx="ctx" @settting-user-settings:saved="emits('setttingUserSettings:saved')"
+            @settting-user-settings:cancel="emits('setttingUserSettings:cancel')"></ToolsbarSettings>
         </div>
       </el-main>
     </el-container>
@@ -47,6 +43,7 @@ import { User, Setting, Menu, Plus, ArrowLeft, ArrowRight } from "@element-plus/
 import GeneralSettings from "./settings/GeneralSettings.vue";
 import { ElMessage } from "element-plus";
 import { AppContext } from "@/services/AppContext";
+import ToolsbarSettings from "./settings/ToolsbarSettings.vue";
 const props = defineProps({
   ctx: {
     type: Object as () => AppContext,
