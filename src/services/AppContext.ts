@@ -3,7 +3,7 @@ import { UserSettingsServices } from "./UserSettingsServices";
 
 export class AppContext {
     userSettings: UserSettingsServices;
-    currentEditor: Cherry
+    currentEditor: Cherry;
     constructor() {
 
     }

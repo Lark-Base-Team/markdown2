@@ -26,7 +26,7 @@ const emit = defineEmits([
   "base:left",
   "base:right",
   "base:userSettings",
-  'base:favor',
+  "base:favor",
 ]);
 const afterChange = (text: string, html: string) => {
   // console.log(text, html);
@@ -123,7 +123,7 @@ const createCustomMunu = () => {
       },
     }),
     userSettings: Cherry.createMenuHook("用户设置", {
-      title: "用户设置",
+      title: "用户设置1",
       icon: {
         type: "svg",
         content:
@@ -164,7 +164,11 @@ const createNewCherry = (text: string) => {
     cherryInstance.value.destroy();
   }
   // console.log(props.ctx?.userSettings.getSettings())
-  const userSettings = props.ctx?.userSettings.getSettings();
+  const userSettings = _.cloneDeep(props.ctx?.userSettings.getSettings());
+  let isp = userSettings?.editor.defaultModel;
+  if ("previewOnly" == isp) {
+    userSettings.editor.defaultModel = "editOnly";
+  }
   const ds = {
     el: mdEditor.value,
     value: text,
@@ -176,9 +180,9 @@ const createNewCherry = (text: string) => {
       // 定义顶部工具栏
       // toolbar: ['bold', 'italic', 'strikethrough', '|', 'color', 'header', 'ruby', '|', 'list', 'panel', 'detail', 'export', 'togglePreview', 'switchModel'],
       // 定义侧边栏，默认为空
-    
+
       // 定义选中文字时弹出的“悬浮工具栏”，默认为 ['bold', 'italic', 'underline', 'strikethrough', 'sub', 'sup', 'quote', '|', 'size', 'color']
-      // bubble: false,
+      
       // 定义光标出现在行首位置时出现的“提示工具栏”，默认为 ['h1', 'h2', 'h3', '|', 'checklist', 'quote', 'table', 'code']
       float: false,
       customMenu: createCustomMunu(),
@@ -187,6 +191,10 @@ const createNewCherry = (text: string) => {
   const settings = _.merge({}, ds, userSettings);
   console.log(settings);
   let c = new Cherry(settings as any);
+  // console.log(c);
+  if (isp === "previewOnly") {
+    c.previewer.previewOnly();
+  }
   cherryInstance.value = c;
   props.ctx?.setCurrentEditor(c);
   cherryInstance.value.on("afterChange", afterChange);

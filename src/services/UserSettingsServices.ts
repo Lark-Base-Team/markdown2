@@ -9,7 +9,7 @@ export interface ToolbarsSettings {
     // 顶部工具类型
     toolbar: string[];
     // 提示框工具栏
-    bubble: string[];
+    bubble?: string[] | boolean;
     // 侧边栏工具栏
     sidebar: string[];
     // 顶部右侧工具栏
@@ -57,22 +57,23 @@ export const defaultUserSettings: UserSettings = {
             "userSettings",
             "favor"
         ],
-        bubble: [
-            "bold",
-            "italic",
-            "underline",
-            "strikethrough",
-            "sub",
-            "sup",
-            "quote",
-            "|",
-            "size",
-            "color",
-            "table",
-        ],
+        // bubble: [
+        //     "bold",
+        //     "italic",
+        //     "underline",
+        //     "strikethrough",
+        //     "sub",
+        //     "sup",
+        //     "quote",
+        //     "|",
+        //     "size",
+        //     "color",
+        //     "table",
+        // ],
         sidebar: [],
         // 定义顶部右侧工具栏，默认为空
         toolbarRight: [],
+        bubble: false, // 是否显示提示框工具栏，默认为false
     }
 };
 
@@ -89,6 +90,7 @@ export class UserSettingsServices {
 
     // 从本地存储加载设置
     private loadSettings(): void {
+        console.log("加载设置", this.settings);
         try {
             const storedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
             if (storedSettings) {
@@ -104,6 +106,7 @@ export class UserSettingsServices {
 
     // 保存设置到本地存储
     private saveSettings(): void {
+        console.log("保存设置", this.settings);
         try {
             localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(this.settings));
         } catch (error) {
@@ -113,12 +116,14 @@ export class UserSettingsServices {
 
     // 获取所有设置
     public getSettings(): UserSettings {
+        console.log("获取设置", this.settings);
         return this.settings;
     }
 
     // 更新设置
     public updateSettings(newSettings: Partial<UserSettings>): void {
         this.settings = { ...this.settings, ...newSettings };
+        console.log("更新设置", this.settings);
         this.saveSettings();
     }
 
